@@ -24,7 +24,7 @@ function isWellPlaced(arrayAnswer, arrayWordTried) {
     return myArray
 }
 
-function IsMissPlaced(arrayAnswer, arrayWordTried) {
+function isMissPlaced(arrayAnswer, arrayWordTried) {
 
     let myArray = [];
     for (let i = 0; i < arrayAnswer.length; i++) {
@@ -47,54 +47,51 @@ function isNotInAnswer(arrayAnswer, arrayWordTried) {
 }
 
 
-function tryWord(wordTried, answer) {
+function tryPlayerWord(wordTried, answer) {
 
-	if (wordTried === answer) {
+    if (wordTried === answer) {
 		return true
     } else {
+  	    let arrayAnswer = answer.split('');
+        let arrayWordTried = wordTried.split('');
 
-  	let arrayAnswer = answer.split('');
-    let arrayWordTried = wordTried.split('');
-
-    wellPlaced = isWellPlaced(arrayAnswer, arrayWordTried);
-    missPlaced = IsMissPlaced(arrayAnswer, arrayWordTried);
-    notInAnswer = isNotInAnswer(arrayAnswer, arrayWordTried);
-
-    
-    return { 
-        wellPlaced: wellPlaced, 
-        missPlaced: missPlaced, 
-        notInAnswer: notInAnswer 
+        wellPlaced = isWellPlaced(arrayAnswer, arrayWordTried);
+        missPlaced = isMissPlaced(arrayAnswer, arrayWordTried);
+        notInAnswer = isNotInAnswer(arrayAnswer, arrayWordTried);
+        
+        return {
+            wellPlaced: wellPlaced, 
+            missPlaced: missPlaced, 
+            notInAnswer: notInAnswer
         }
     }
 }
 
-function guessWord() {
+function playGame() {
 
-	let answer = 'dictionnaire';
-	let wordTried = document.getElementById("try").value;
+    let answer = 'dictionnaire';
+    let wordTried = document.getElementById("try").value;
     allWordsTried.push(wordTried);
-    console.log(allWordsTried)
 
-	let result = tryWord(wordTried, answer);
+    let gameResult = tryPlayerWord(wordTried, answer);
 
-    if (result == true) {
-        document.getElementById("win").innerText = 'Vous avez gagné';
+    if (gameResult == true) {
+        document.getElementById("win").innerText = 'Vous avez gagné !';
         ALL_WORDS_TRIED_ELEMENT.innerText = "";
         WELL_PLACED_ELEMENT.innerText = "";
         MISS_PLACED_ELEMENT.innerText = "";
         NOT_IN_WORD_ELEMENT.innerText = "";
     }
 
-    displayMotus(wordTried, result, allWordsTried);
+    displayGameClues(wordTried, gameResult, allWordsTried);
 }  
 
-function displayMotus(wordTried, result, allWordsTried) {
+function displayGameClues(wordTried, gameResult, allWordsTried) {
 
     TRY_ELEMENT.value = '';
-    WORD_TRIED_ELEMENT.innerText = 'Mot essayé: '+wordTried;// `${}`
-    ALL_WORDS_TRIED_ELEMENT.innerText = 'Mots essayés :'+allWordsTried;
-    WELL_PLACED_ELEMENT.innerText = 'Bien placé: '+result.wellPlaced.join(', ');
-    MISS_PLACED_ELEMENT.innerText = 'Mal placé: '+result.missPlaced.join(', ');
-    NOT_IN_WORD_ELEMENT.innerText = 'Pas dans le mot: '+result.notInAnswer.join(', ');
+    WORD_TRIED_ELEMENT.innerText = `Dernier mot essayé : ${wordTried}`
+    ALL_WORDS_TRIED_ELEMENT.innerText = `Tous les essais : ${allWordsTried}`;
+    WELL_PLACED_ELEMENT.innerText = `Lettres bien placées : ${gameResult.wellPlaced.join(', ')}`;
+    MISS_PLACED_ELEMENT.innerText = `Lettres mal placées : ${gameResult.missPlaced.join(', ')}`;
+    NOT_IN_WORD_ELEMENT.innerText = `Pas dans le mot : ${gameResult.notInAnswer.join(', ')}`;
 }
