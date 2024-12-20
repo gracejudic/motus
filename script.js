@@ -1,4 +1,3 @@
-// place de la honte constantes
 const TRY_ELEMENT = document.getElementById("try");
 const WORD_TRIED_ELEMENT = document.getElementById("wordTried");
 const WELL_PLACED_ELEMENT = document.getElementById("well");
@@ -6,13 +5,13 @@ const MISSPLACED_ELEMENT = document.getElementById("miss");
 const NOT_IN_WORD_ELEMENT = document.getElementById("not");
 const ALL_WORDS_TRIED_ELEMENT = document.getElementById("allWordsTried");
 
-// place de la honte variables
 let wellPlaced = [];
 let notInAnswer = [];
 let missplaced = [];
 let allWordsTried = [];
 
-
+// prend en argument 2 tableaux : bonne réponse + mot essayé
+// return un tableau vide ou contenant les lettres bien placées
 function isWellPlaced(arrayAnswer, arrayWordTried) {
 
     let myArray = [];
@@ -24,6 +23,8 @@ function isWellPlaced(arrayAnswer, arrayWordTried) {
     return myArray
 }
 
+// prend en argument 2 tableaux : bonne réponse + mot essayé
+// return un tableau vide ou contenant les lettres mal placées
 function isMissplaced(arrayAnswer, arrayWordTried) {
 
     let myArray = [];
@@ -35,6 +36,8 @@ function isMissplaced(arrayAnswer, arrayWordTried) {
     return myArray
 }
 
+// prend en argument 2 tableaux : bonne réponse + mot essayé
+// return un tableau vide ou contenant les lettres absentes
 function isNotInAnswer(arrayAnswer, arrayWordTried) {
 
     let myArray = [];
@@ -46,6 +49,10 @@ function isNotInAnswer(arrayAnswer, arrayWordTried) {
     return myArray
 }
 
+// prend en argument 2 strings (mot essayé + bonne réponse)
+
+// return true si == sinon return objet contenant lettres mal placées, bien placées, 
+// inexistantes
 function tryPlayerWord(wordTried, answer) {
 
     if (wordTried === answer) {
@@ -66,6 +73,8 @@ function tryPlayerWord(wordTried, answer) {
     }
 }
 
+// pas d'argument
+// gère les appels de fonctions (check mots essayés, affichage si partie gagnée)
 function playGame() {
 
     let answer = 'dictionnaire';
@@ -85,6 +94,10 @@ function playGame() {
     displayGameClues(wordTried, gameResult, allWordsTried);
 }  
 
+// prend en argument une string (mot essayé) un objet (3 tableaux avec lettres existantes, 
+// mal placées, bien placées), tableau de strings (mots essayés par joueur.euse)
+
+// injecte dans HTML les résultats de joueur.euse
 function displayGameClues(wordTried, gameResult, allWordsTried) {
 
     TRY_ELEMENT.value = '';

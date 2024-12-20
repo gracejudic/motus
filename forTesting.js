@@ -1,3 +1,6 @@
+// je reprends ici la structure de mes fonctions pour m'en servir dans les tests sans 
+// avoir à manipuler le DOM
+
 let answer = 'dictionnaire'
 
 function isWellPlaced(arrayAnswer, arrayWordTried) {
